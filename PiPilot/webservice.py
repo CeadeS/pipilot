@@ -84,7 +84,7 @@ class WebApp(resource.Resource):
     def render_GET(self, request):
         data = b'The UI files have not been built.'
         request.setHeader('Content-Type', 'text/plain')
-        request.setHeader('Content-Length', len(data))
+        request.setHeader('Content-Length', str(len(data)))
         return data
 
 
@@ -104,5 +104,5 @@ class UIResource(resource.Resource):
     #---------------------------------------------------------------------------
     def render_GET(self, request):
         request.setHeader('Content-Type', self.mimetype)
-        request.setHeader('Content-Length', len(self.data))
+        request.setHeader('Content-Length', str(len(self.data)))
         return self.data
