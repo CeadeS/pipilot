@@ -40,6 +40,7 @@ class WebApp(resource.Resource):
         # Set up the websocket
         #-----------------------------------------------------------------------
         ws_factory = WSFactory(controller=self.controller)
+        ws_factory.setProtocolOptions(autoPingInterval = 0.1, autoPingTimeout = 0.1, autoPingSize = 4)
         ws_factory.protocol = WSProtocol
         ws_resource = WebSocketResource(ws_factory)
         self.putChild(b'ws', ws_resource)
@@ -76,7 +77,6 @@ class WebApp(resource.Resource):
 
     #---------------------------------------------------------------------------
     def getChild(self, name, request):
-        if request.uri in self.children:
             return self.children[request.uri]
         return self.index
 
