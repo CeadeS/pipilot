@@ -73,6 +73,40 @@ const HandleTooltipLeft = (props) => {
 // Aircraft Controller
 //------------------------------------------------------------------------------
 class AircraftController extends Component {
+
+constructor(props) {
+    super(props);
+    document.body.addEventListener("keydown", this.sliderKeyHandler.bind(this));
+    this.state = {
+      value1: 4,
+      value: 0,
+      a: 0
+    };
+  }
+
+  handleValueChange(e, { value }) {
+    this.setState({
+      value: value
+    });
+  }
+  sliderKeyHandler(e) {
+    // Replace this with your slider id
+    var k = e.which;
+    var v = this.state.a;
+    if (k === 39) {
+      // 39 rechts, 40 unten
+      v++;
+    } else if (k === 37) {
+      v--;
+    } else if (k === 38) {
+      v++;
+    } else if (k === 40) {
+      v--;
+    } else if (k === 32) {
+      v=0;
+    }
+    this.setState({ a: v });
+  }
   //----------------------------------------------------------------------------
   // Render
   //----------------------------------------------------------------------------
@@ -96,6 +130,7 @@ class AircraftController extends Component {
                     <Slider
                       min={-100}
                       max={100}
+                      value={this.state.a}
                       defaultValue={0}
                       handle={HandleTooltipLeft}
                       vertical
